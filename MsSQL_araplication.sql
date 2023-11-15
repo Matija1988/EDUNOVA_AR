@@ -8,7 +8,7 @@ use arproject;
 
 create table apps(
 id int primary key not null identity(1,1), 
-name varchar(50) not null, -- ime aplikacije AR Drniš, AR Biokovo
+name varchar(50) not null, -- ime aplikacije AR Drnis, AR Biokovo
 version decimal(3,2), -- ako ikad dode do v 999.99 castim suicidalnim tjednom na Ibizi
 url varchar(50) -- link gdje se nalazi najnovija verzija mobilne aplikacije
 ); 
@@ -24,7 +24,7 @@ highscore int -- može koristiti aplikaciju prije koristenja prvog kviza
 create table leaderboard(
 id int primary key not null identity(1,1),
 userID int not null, 
-game int not null,
+gameID int not null,
 score int not null
 );
 
@@ -47,8 +47,12 @@ answersID int not null
 );
 
 create table quizzes(
-id int,
-name varchar(50),
+id int primary key not null identity(1,1),
+name varchar(50) not null,
 questionAnswer int,
 leaderboard int
 );
+
+alter table leaderboard add foreign key (userID) references users(id);
+alter table questionsAnswers add foreign key(questionID) references questions(id);
+alter table questionsAnswers add foreign key(answersID) references answers(id);
