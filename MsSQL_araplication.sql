@@ -19,6 +19,7 @@ userName varchar(50) not null,
 password varchar(50) not null,
 appUsed int, -- može se registrirati prije downloada aplikacije
 highscore int, -- može koristiti aplikaciju prije koristenja prvog kviza
+lastLogIn datetime,
 email varchar(100)
 );
 create table appsUsedList(
