@@ -28,14 +28,12 @@ appID int
 create table leaderboards(
 id int primary key not null identity(1,1),
 userID int not null, 
-quizzID int not null,
 score int not null
 );
 
 create table questions(
 id int primary key not null identity(1,1),
-question varchar(100) not null, -- pitanje mora postojat
-answer int not null, -- sva pitanja moraju imati odgovor 
+question varchar(100) not null, -- pitanje mora postojat 
 points int not null -- sva pitanja tocno odgovorena donose odredeni broj bodova 
 );
 
