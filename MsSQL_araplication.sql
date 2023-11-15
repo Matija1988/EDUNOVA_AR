@@ -18,13 +18,17 @@ id int primary key not null identity (1,1),
 userName varchar(50) not null, 
 password varchar(50) not null,
 appUsed int, -- može se registrirati prije downloada aplikacije
-highscore int -- može koristiti aplikaciju prije koristenja prvog kviza
+highscore int, -- može koristiti aplikaciju prije koristenja prvog kviza
+email varchar(100)
 );
-
-create table leaderboard(
+create table appsUsedList(
+userID int,
+appID int
+);
+create table leaderboards(
 id int primary key not null identity(1,1),
 userID int not null, 
-gameID int not null,
+quizzID int not null,
 score int not null
 );
 
@@ -42,7 +46,7 @@ isCorrect bit not null -- unosenje laznih odgovora
 );
 
 create table questionsAnswers(
-questionID int not null, -- jedno pitanje moze imati vise odgovra, ne moraju svi biti tocni
+questionID int primary key not null, -- jedno pitanje moze imati vise odgovra, ne moraju svi biti tocni
 answersID int not null
 );
 
@@ -50,9 +54,13 @@ create table quizzes(
 id int primary key not null identity(1,1),
 name varchar(50) not null,
 questionAnswer int,
-leaderboard int
+leaderboard int not null
 );
 
-alter table leaderboard add foreign key (userID) references users(id);
+alter table leaderboards add foreign key (userID) references users(id);
 alter table questionsAnswers add foreign key(questionID) references questions(id);
 alter table questionsAnswers add foreign key(answersID) references answers(id);
+alter table quizzes add foreign key (leaderboard) references leaderboards(id);
+alter table quizzes add foreign key (questionAnswer) references questionsAnswers(questionID);
+alter table appsUsedList add foreign key (userID) references users(id);
+alter table appsUsedList add foreign key (appID) references apps(id);
